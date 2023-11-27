@@ -1,0 +1,80 @@
+﻿@model coursach.ViewModels.RequestViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h4>Вы уыерены, что хотите удалить заявку?</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Delete">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullNameClient" class="control-label"></label>
+                <input asp-for="FullNameClient" class="form-control" readonly />
+            </div>
+            @* <div class="form-group">
+                <label asp-for="ClientId" class="control-label"></label>
+                <input asp-for="ClientId" class="form-control" readonly />
+                <span asp-validation-for="ClientId" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="TechnicalTask" class="control-label"></label>
+                <input asp-for="TechnicalTask" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="CreationDate" class="control-label"></label>
+                <input asp-for="CreationDate" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                @if (Model.TakeDate == null)
+                {
+                    <label asp-for="TakeDate" class="control-label"></label>
+                    <input class ="form-control" readonly value="Не определено"/>
+                }
+                else
+                {
+                    <label asp-for="TakeDate" class="control-label"></label>
+                    <input asp-for="TakeDate" class="form-control" readonly />
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeInf" class="control-label"></label>
+                <input asp-for="EmployeeInf" class="form-control" readonly />
+            </div>
+            @* <div class="form-group">
+                <label asp-for="StatusId" class="control-label"></label>
+                <input asp-for="StatusId" class="form-control" readonly />
+                <span asp-validation-for="StatusId" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <input type="submit" value="Удалить" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

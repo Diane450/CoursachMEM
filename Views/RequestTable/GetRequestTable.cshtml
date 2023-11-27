@@ -1,0 +1,120 @@
+﻿@model IEnumerable<coursach.ViewModels.RequestViewModel>
+
+@{
+    ViewData["Title"] = "GetRequestTable";
+}
+
+<h1>Заявки</h1>
+@if (TempData["ErrorRequest"] != null)
+{
+    <p class="text-danger">@TempData["ErrorRequest"]</p>
+}
+@if (TempData["SuccessEdit"] != null)
+{
+    <p class="alert alert-success">@TempData["SuccessEdit"]</p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullNameClient)
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.ClientId)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.TechnicalTask)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TakeDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.StatusId)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeInf)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullNameClient)
+            </td>
+            @* <td>
+                @Html.DisplayFor(modelItem => item.ClientId)
+            </td> *@
+            <td>
+                @if (item.TechnicalTask != null)
+                {
+                    @Html.DisplayFor(modelItem => item.TechnicalTask)
+                }
+                else
+                {
+                    <p class="text-danger">Не определено</p>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Convert.ToDateTime(item.CreationDate).ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                    @if (item.TakeDate != null)
+                    {
+                        @Convert.ToDateTime(item.TakeDate).ToString("dd/MM/yyyy")
+                    }
+                    else
+                    {
+                        <p class="text-danger">Не определено</p>
+                    }
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            @* <td>
+                @Html.DisplayFor(modelItem => item.StatusId)
+            </td> *@
+                <th>
+                    @if(item.EmployeeInf != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.EmployeeInf)
+                    }
+                    else
+                    {
+                        <p class="text-danger">Не определено</p>
+                    }
+                </th>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
