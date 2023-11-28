@@ -26,7 +26,7 @@ namespace coursach.ViewModels
 
         [DisplayName("Логин")]
         [Required(ErrorMessage = "Обязательное поле для заполнения")]
-        //[Remote(action: "CheckLogin", controller: "Validation",ErrorMessage ="Данный логин уже используется")]
+        [Remote(action: "CheckLogin", controller: "Validation", ErrorMessage ="Данный логин уже используется")]
         public string Login { get; set; } = null!;
         
         [DisplayName("Пароль")]
@@ -38,6 +38,7 @@ namespace coursach.ViewModels
         public string Role { get; set; }
 
         [Required(ErrorMessage = "Обязательное поле для заполнения")]
+        [DisplayName("Роль")]
         public int RoleId { get; set; }
         
         [Required(ErrorMessage = "Обязательное поле для заполнения")]

@@ -31,7 +31,7 @@ namespace coursach.Controllers
             {
                 if (user.Password == model.Password)
                 {
-                    CurrentUser.Login = user.Login;
+                    CurrentUser.currentUserData = user;
                     if(user.RoleId == 1)
                     {
                          return RedirectToAction("MainPage", "AdminMainPage");

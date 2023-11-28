@@ -1,4 +1,5 @@
-﻿using coursach.Models;
+﻿using coursach.Helpers;
+using coursach.Models;
 using coursach.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -76,7 +77,6 @@ namespace coursach.Controllers
             _dbContext.SaveChanges();
 
             var employee = _dbContext.Employees.Where(e => e.Id == employeeInfo.EmployeeId).First();
-            employee.Login = model.Login;
             employee.RoleId = model.RoleId;
 
             _dbContext.Employees.Update(employee);
@@ -124,12 +124,18 @@ namespace coursach.Controllers
             }
             var employeeInfo = _dbContext.EmployeeInformations.Where(e => e.Id == model.Id).First();
             var employee = _dbContext.Employees.Where(e => e.Id == employeeInfo.EmployeeId).First();
+
+            bool IsCurrentUser = CurrentUser.currentUserData.Id == employee.Id;
             _dbContext.EmployeeInformations.Remove(employeeInfo);
             _dbContext.SaveChanges();
 
             _dbContext.Employees.Remove(employee);
             _dbContext.SaveChanges();
 
+            if (IsCurrentUser)
+            {
+                return RedirectToAction("Auth", "Authorization");
+            }
             TempData["SuccessUpdate"] = $"Пользователь удален";
             return RedirectToAction("GetTable");
         }

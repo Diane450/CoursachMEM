@@ -1,4 +1,5 @@
-﻿using coursach.Models;
+﻿using coursach.Helpers;
+using coursach.Models;
 using coursach.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -82,8 +83,18 @@ namespace coursach.Controllers
                                 RoleId = employee.RoleId
                             }).ToList();
                 list.RemoveAll(x => x.RoleId == 1);
+                ViewBag.EmployeeLastName = "";
+                if (CurrentUser.currentUserData.RoleId == 1)
+                {
+                    ViewBag.EmployeeLastName = new SelectList(list, "Id", "FullName", requestTable.EmployeeInfId);
+                }
+                else
+                {
+                    EmployeeInformation ei = _dbContext.EmployeeInformations.Where(e => e.EmployeeId == CurrentUser.currentUserData.Id).First();
+                    list.RemoveAll(x => x.Id != ei.Id);
+                    ViewBag.EmployeeLastName = new SelectList(list, "Id", "FullName", requestTable.EmployeeInfId);
+                }
                 ViewBag.StatusName = new SelectList(_dbContext.Statuses.ToList(), "Id", "Name", requestTable.StatusId);
-                ViewBag.EmployeeLastName = new SelectList(list, "Id", "FullName", requestTable.EmployeeInfId);
                 return View(requestTable);
             }
         }
