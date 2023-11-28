@@ -39,7 +39,8 @@ public partial class Ispr2438MageramovEmCoursachContext : DbContext
 
             entity.Property(e => e.Email).HasMaxLength(45);
             entity.Property(e => e.Login).HasMaxLength(45);
-            entity.Property(e => e.Password).HasMaxLength(45);
+            entity.Property(e => e.Password).HasMaxLength(255);
+            entity.Property(e => e.Salt).HasMaxLength(255);
         });
 
         modelBuilder.Entity<Employee>(entity =>
@@ -51,7 +52,8 @@ public partial class Ispr2438MageramovEmCoursachContext : DbContext
             entity.HasIndex(e => e.RoleId, "FK_Employee_Role_idx");
 
             entity.Property(e => e.Login).HasMaxLength(45);
-            entity.Property(e => e.Password).HasMaxLength(45);
+            entity.Property(e => e.Password).HasMaxLength(255);
+            entity.Property(e => e.Sallt).HasMaxLength(255);
 
             entity.HasOne(d => d.Role).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.RoleId)

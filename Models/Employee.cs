@@ -11,6 +11,8 @@ public partial class Employee
 
     public string Password { get; set; } = null!;
 
+    public string Sallt { get; set; } = null!;
+
     public int RoleId { get; set; }
 
     public virtual ICollection<EmployeeInformation> EmployeeInformations { get; set; } = new List<EmployeeInformation>();

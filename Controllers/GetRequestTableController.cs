@@ -67,7 +67,7 @@ namespace coursach.Controllers
                     Email = request.Email,
                     CreationDate = request.CreationDate,
                     TakeDate = request.TakeDate,
-                    StatusId = request.Id,
+                    StatusId = request.StatusId,
                     EmployeeInfId = request.EmployeeInfId
                 };
                 var list = (from empInf in _dbContext.EmployeeInformations
@@ -80,6 +80,7 @@ namespace coursach.Controllers
                                 Email = empInf.Email,
                                 Login = employee.Login,
                                 Password = employee.Password,
+                                Sallt = employee.Sallt,
                                 RoleId = employee.RoleId
                             }).ToList();
                 list.RemoveAll(x => x.RoleId == 1);

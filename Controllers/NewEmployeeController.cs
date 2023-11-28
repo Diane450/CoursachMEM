@@ -1,5 +1,6 @@
 ﻿using coursach.Models;
 using coursach.ViewModels;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -29,9 +30,10 @@ namespace coursach.Controllers
             Employee newEmployee = new Employee()
             {
                 Login = model.Login,
-                Password = model.Password,
+                Sallt = BCrypt.Net.BCrypt.GenerateSalt(),
                 RoleId = model.RoleId
             };
+            newEmployee.Password = BCrypt.Net.BCrypt.HashPassword(model.Password, newEmployee.Sallt);
             _dbContext.Employees.Add(newEmployee);
             _dbContext.SaveChanges();
 

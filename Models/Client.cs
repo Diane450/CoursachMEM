@@ -11,6 +11,8 @@ public partial class Client
 
     public string Password { get; set; } = null!;
 
+    public string Salt { get; set; } = null!;
+
     public string Email { get; set; } = null!;
 
     public virtual ICollection<Request> Requests { get; set; } = new List<Request>();

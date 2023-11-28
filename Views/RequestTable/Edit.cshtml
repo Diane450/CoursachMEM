@@ -4,8 +4,6 @@
     ViewData["Title"] = "Edit";
 }
 <body onload="SetMinDate()">
-    <h1>Edit</h1>
-
     <h4>Изменение заявки</h4>
     <hr />
     <div class="row">
@@ -47,11 +45,22 @@
                     <input asp-for="CreationDate" type="date" class="form-control" readonly />
                     <span asp-validation-for="CreationDate" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="TakeDate" class="control-label"></label>
-                    <input asp-for="TakeDate" type="date" class="form-control" id="date" />
-                    <span asp-validation-for="TakeDate" class="text-danger"></span>
-                </div>
+                @if (@Model.TakeDate == null)
+                {
+                    <div class="form-group">
+                        <label asp-for="TakeDate" class="control-label"></label>
+                        <input asp-for="TakeDate" type="date" class="form-control" id="date" />
+                        <span asp-validation-for="TakeDate" class="text-danger"></span>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label asp-for="TakeDate" class="control-label"></label>
+                        <input asp-for="TakeDate" type="date" class="form-control" readonly />
+                        <span asp-validation-for="TakeDate" class="text-danger"></span>
+                    </div>
+                }
                 <div class="form-group">
                     <label asp-for="StatusId" class="control-label"></label>
                     <select asp-for="StatusId" asp-items="ViewBag.StatusName" class="form-control"></select>

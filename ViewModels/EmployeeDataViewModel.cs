@@ -14,8 +14,10 @@ namespace coursach.ViewModels
         [DisplayName("Полное имя")]
         [Required(ErrorMessage = "Обязательное поле для заполнения")]
         public string FullName { get; set; } = null!;
+        public string Salt { get; set; } = null!;
 
         [DisplayName("Номер телефона")]
+        [MinLength(17,ErrorMessage ="Некорректный номер телефона")]
         [Required(ErrorMessage = "Обязательное поле для заполнения")]
         public string Phone { get; set; } = null!;
 
@@ -33,7 +35,8 @@ namespace coursach.ViewModels
         [MinLength(4, ErrorMessage = "Минимальная длина пароля 4 символа")]
         [Required(ErrorMessage = "Обязательное поле для заполнения")]
         public string Password { get; set; } = null!;
-        
+        public string Sallt { get; set; }
+
         [DisplayName("Роль")]
         public string Role { get; set; }
 

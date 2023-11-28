@@ -41,15 +41,15 @@ namespace coursach.Controllers
         public IActionResult Edit(int id)
         {
             var einformation = _dbContext.EmployeeInformations.SingleOrDefault(einformation => einformation.Id == id);
-            var e = _dbContext.Employees.SingleOrDefault(e => e.Id == einformation.EmployeeId);
-            var role = _dbContext.Roles.SingleOrDefault(r => r.Id == e.RoleId);
-            if (einformation == null || e == null || role == null)
+            if (einformation == null)
             {
                 TempData["ErrorMessage"] = $"Сотрудника с порядковым номер {id} не существует";
-                return RedirectToAction("GetTable");
+                return RedirectToAction("MainPage", "AdminMainPage");
             }
             else
             {
+                var e = _dbContext.Employees.SingleOrDefault(e => e.Id == einformation.EmployeeId);
+                var role = _dbContext.Roles.SingleOrDefault(r => r.Id == e.RoleId);
                 var employee = new EmployeeDataViewModel()
                 {
                     Id = id,
@@ -60,7 +60,15 @@ namespace coursach.Controllers
                     Password = e.Password,
                     RoleId = role.Id
                 };
-                ViewBag.RoleName = new SelectList(_dbContext.Roles.ToList(), "Id", "Name", employee.Role);
+                ViewBag.RoleName = "";
+                if (employee.RoleId == 1)
+                {
+                    ViewBag.RoleName = new SelectList(_dbContext.Roles.Where(r => r.Id == 1).ToList(), "Id", "Name", employee.Role);
+                }
+                else
+                {
+                    ViewBag.RoleName = new SelectList(_dbContext.Roles.ToList(), "Id", "Name", employee.Role);
+                }
                 return View(employee);
             }
         }
@@ -106,6 +114,7 @@ namespace coursach.Controllers
                 Email = einformation.Email,
                 Login = e.Login,
                 Password = e.Password,
+                Sallt = e.Sallt,
                 Role = role.Name
             };
             return View(employee);
@@ -134,6 +143,7 @@ namespace coursach.Controllers
 
             if (IsCurrentUser)
             {
+                CurrentUser.currentUserData = null;
                 return RedirectToAction("Auth", "Authorization");
             }
             TempData["SuccessUpdate"] = $"Пользователь удален";

@@ -4,6 +4,7 @@ using coursach.ViewModels;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc;
 using MySqlX.XDevAPI;
+using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Crypto.Generators;
 using System.Diagnostics;
 
@@ -26,10 +27,10 @@ namespace coursach.Controllers
         //авторизация
         public IActionResult Auth(AuthorizationViewModel model)
         {
-            var user = _dbContext.Employees.Where((user) => user.Login == model.Login).FirstOrDefault();
+            var user = _dbContext.Employees.Where(user => user.Login == model.Login).FirstOrDefault();
             if (user != null)
             {
-                if (user.Password == model.Password)
+                if (user.Password == BCrypt.Net.BCrypt.HashPassword(model.Password, user.Sallt!))
                 {
                     CurrentUser.currentUserData = user;
                     if(user.RoleId == 1)

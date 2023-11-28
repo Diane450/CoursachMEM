@@ -15,7 +15,7 @@ namespace coursach.Validation
         public IActionResult CheckFullName(string fullName)
         {
             string[] str = fullName.Split(' ');
-            if (str.Length >= 2)
+            if (str.Length == 2 || str.Length ==3)
             {
                 for (int i = 0; i < str.Length; i++)
                 {
