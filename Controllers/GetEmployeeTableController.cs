@@ -3,8 +3,6 @@ using coursach.Models;
 using coursach.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using NuGet.Protocol.Plugins;
-using System.Xml.Linq;
 
 namespace coursach.Controllers
 {

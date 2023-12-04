@@ -3,9 +3,7 @@ using coursach.Models;
 using coursach.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MySqlX.XDevAPI;
 using System.Data;
-using System.Linq;
 
 namespace coursach.Controllers
 {

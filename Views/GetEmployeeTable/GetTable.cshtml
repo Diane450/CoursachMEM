@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<coursach.ViewModels.EmployeeDataViewModel>
 
 @{
-    ViewData["Title"] = "GetTable";
+    ViewData["Title"] = "Таблица сотрудников";
 }
 
 <h1>Сотрудники</h1>
@@ -59,9 +59,9 @@
                 @Html.DisplayFor(modelItem => item.Role)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id}) |
+                @Html.ActionLink("Редактировать", "Edit", new { id=item.Id}) |
                 @* @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) | *@
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
             </td>
         </tr>
 }

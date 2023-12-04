@@ -1,12 +1,7 @@
 ﻿using coursach.Helpers;
 using coursach.Models;
 using coursach.ViewModels;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc;
-using MySqlX.XDevAPI;
-using Newtonsoft.Json.Linq;
-using Org.BouncyCastle.Crypto.Generators;
-using System.Diagnostics;
 
 namespace coursach.Controllers
 {
