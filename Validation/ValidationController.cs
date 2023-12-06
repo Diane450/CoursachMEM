@@ -14,17 +14,20 @@ namespace coursach.Validation
         }
         public IActionResult CheckFullName(string fullName)
         {
-            string[] str = fullName.Split(' ');
-            if (str.Length == 2 || str.Length ==3)
+            if (fullName != null)
             {
-                for (int i = 0; i < str.Length; i++)
+                string[] str = fullName.Split(' ');
+                if (str.Length == 2 || str.Length == 3)
                 {
-                    if (!Regex.IsMatch(str[i], "^[а-яА-Я]+$"))
+                    for (int i = 0; i < str.Length; i++)
                     {
-                        return Json("Некорректное имя сотрудника");
+                        if (!Regex.IsMatch(str[i], "^[а-яА-Я]+$"))
+                        {
+                            return Json("Некорректное имя сотрудника");
+                        }
                     }
+                    return Json(true);
                 }
-                return Json(true);
             }
             return Json("Некорректное имя сотрудника");
         }
