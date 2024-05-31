@@ -16,8 +16,30 @@ namespace coursach.Controllers
         }
         //вьюшка таблицы с заявками
         [HttpGet]
-        public IActionResult GetRequestTable()
+        public IActionResult GetRequestTable(string sortOrder, string searchString, string statusFilter, string employeeFilter)
         {
+            ViewData["CreateDateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "CreateDate_desc" : "";
+            ViewData["TakeDateSortParm"] = sortOrder == "TakeDate" ? "TakeDate_desc" : "TakeDate";
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentStatusFilter"] = statusFilter;
+            ViewData["CurrentEmployeeFilter"] = employeeFilter;
+
+            var statuses = _dbContext.Statuses.Select(r => new SelectListItem
+            {
+                Value = r.Name,
+                Text = r.Name
+            }).ToList();
+            ViewBag.Statuses = new SelectList(statuses, "Value", "Text");
+
+            var employees = _dbContext.EmployeeInformations.Select(r => new SelectListItem
+            {
+                Value = r.FullName,
+                Text = r.FullName
+            }).ToList();
+            ViewBag.Employees = new SelectList(employees, "Value", "Text");
+
+
+
             var requestTable = (from requests in _dbContext.Requests
                                 join employee in _dbContext.EmployeeInformations on requests.EmployeeInfId equals employee.Id into empInfo
                                 from employee in empInfo.DefaultIfEmpty()
@@ -40,7 +62,38 @@ namespace coursach.Controllers
                                 ).ToList();
             if(requestTable.Count()==0)
                 TempData["ErrorRequest"] = $"Заявки отсутствуют";
-            return View(requestTable);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                requestTable = requestTable.Where(s => s.FullNameClient.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(statusFilter) && statusFilter != "Все")
+            {
+                requestTable = requestTable.Where(s => s.Status == statusFilter).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(employeeFilter) && employeeFilter != "Все")
+            {
+                requestTable = requestTable.Where(s => s.EmployeeInf == employeeFilter).ToList();
+            }
+
+            switch (sortOrder)
+            {
+                case "CreateDate_desc":
+                    requestTable = requestTable.OrderByDescending(s => s.CreationDate).ToList();
+                    break;
+                case "TakeDate":
+                    requestTable = requestTable.OrderBy(s => s.TakeDate).ToList();
+                    break;
+                case "TakeDate_desc":
+                    requestTable = requestTable.OrderByDescending(s => s.TakeDate).ToList();
+                    break;
+                default:
+                    requestTable = requestTable.OrderBy(s => s.CreationDate).ToList();
+                    break;
+            }
+            return View(requestTable.ToList());
         }
 
         //вьюшка изменения данных по заявке

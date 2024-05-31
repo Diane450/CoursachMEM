@@ -13,39 +13,39 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group mb-3">
-                            <label asp-for="Id" class="form-label text-primary"></label>
+                            <label asp-for="Id" class="form-label"></label>
                             <input asp-for="Id" class="form-control border-primary readonly-field" readonly />
                             <span asp-validation-for="Id" class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label asp-for="FullNameClient" class="form-label text-primary"></label>
+                            <label asp-for="FullNameClient" class="form-label"></label>
                             <input asp-for="FullNameClient" class="form-control border-primary readonly-field" readonly />
                             <span asp-validation-for="FullNameClient" class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label asp-for="TechnicalTask" class="form-label text-primary"></label>
+                            <label asp-for="TechnicalTask" class="form-label"></label>
                             <input asp-for="TechnicalTask" class="form-control border-primary" />
                             <span asp-validation-for="TechnicalTask" class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label asp-for="Phone" class="form-label text-primary"></label>
+                            <label asp-for="Phone" class="form-label"></label>
                             <input asp-for="Phone" class="form-control border-primary readonly-field" readonly />
                             <span asp-validation-for="Phone" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group mb-3">
-                            <label asp-for="Email" class="form-label text-primary"></label>
+                            <label asp-for="Email" class="form-label"></label>
                             <input asp-for="Email" class="form-control border-primary readonly-field" readonly />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label asp-for="CreationDate" class="form-label text-primary"></label>
+                            <label asp-for="CreationDate" class="form-label"></label>
                             <input asp-for="CreationDate" type="date" class="form-control border-primary readonly-field" readonly />
                             <span asp-validation-for="CreationDate" class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label asp-for="TakeDate" class="form-label text-primary"></label>
+                            <label asp-for="TakeDate" class="form-label"></label>
                             @if (Model.TakeDate == null)
                             {
                                 <input asp-for="TakeDate" type="date" class="form-control border-primary" id="date" />
@@ -57,12 +57,12 @@
                             <span asp-validation-for="TakeDate" class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label asp-for="StatusId" class="form-label text-primary"></label>
+                            <label asp-for="StatusId" class="form-label"></label>
                             <select asp-for="StatusId" asp-items="ViewBag.StatusName" class="form-control border-primary"></select>
                             <span asp-validation-for="StatusId" class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
-                            <label asp-for="EmployeeInfId" class="form-label text-primary"></label>
+                            <label asp-for="EmployeeInfId" class="form-label"></label>
                             <select asp-for="EmployeeInfId" asp-items="ViewBag.EmployeeLastName" class="form-control border-primary"></select>
                             <span asp-validation-for="EmployeeInfId" class="text-danger"></span>
                         </div>

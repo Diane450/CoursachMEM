@@ -3,6 +3,7 @@ using coursach.Models;
 using coursach.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace coursach.Controllers
 {
@@ -13,10 +14,23 @@ namespace coursach.Controllers
         {
             this._dbContext = _dbContext;
         }
+
         //вывод таблицы сотрудников
         [HttpGet]
-        public IActionResult GetTable()
+        public IActionResult GetTable(string sortOrder, string searchString, string roleFilter)
         {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["RoleSortParm"] = sortOrder == "Role" ? "role_desc" : "Role";
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentRoleFilter"] = roleFilter;
+
+            var roles = _dbContext.Roles.Select(r => new SelectListItem
+            {
+                Value = r.Name,
+                Text = r.Name
+            }).ToList();
+            ViewBag.Roles = new SelectList(roles, "Value", "Text");
+
             var employees = new List<EmployeeDataViewModel>();
             employees = (from ei in _dbContext.EmployeeInformations
                          join e in _dbContext.Employees on ei.EmployeeId equals e.Id
@@ -31,7 +45,32 @@ namespace coursach.Controllers
                              Password = e.Password,
                              Role = role.Name
                          }).ToList();
-            return View(employees);
+            
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                employees = employees.Where(s => s.FullName.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(roleFilter) && roleFilter != "Все")
+            {
+                employees = employees.Where(s => s.Role == roleFilter).ToList();
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    employees = employees.OrderByDescending(s => s.FullName).ToList();
+                    break;
+                case "Role":
+                    employees = employees.OrderBy(s => s.Role).ToList();
+                    break;
+                case "role_desc":
+                    employees = employees.OrderByDescending(s => s.Role).ToList();
+                    break;
+                default:
+                    employees = employees.OrderBy(s => s.FullName).ToList();
+                    break;
+            }
+            return View(employees.ToList());
         }
         
         //возвращает вьюшку изменения данных о сотруднике

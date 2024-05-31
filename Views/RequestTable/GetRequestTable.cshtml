@@ -4,117 +4,238 @@
     ViewData["Title"] = "Таблица заявок";
 }
 
-<h1>Заявки</h1>
-@if (TempData["ErrorRequest"] != null)
-{
-    <p class="text-danger">@TempData["ErrorRequest"]</p>
-}
-@if (TempData["SuccessEdit"] != null)
-{
-    <p class="alert alert-success">@TempData["SuccessEdit"]</p>
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FullNameClient)
-            </th>
-            @* <th>
-                @Html.DisplayNameFor(model => model.ClientId)
-            </th> *@
-            <th>
-                @Html.DisplayNameFor(model => model.TechnicalTask)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TakeDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            @* <th>
-                @Html.DisplayNameFor(model => model.StatusId)
-            </th> *@
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeInf)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullNameClient)
-            </td>
-            @* <td>
-                @Html.DisplayFor(modelItem => item.ClientId)
-            </td> *@
-            <td>
-                @if (item.TechnicalTask != null)
-                {
-                    @Html.DisplayFor(modelItem => item.TechnicalTask)
-                }
-                else
-                {
-                    <p class="text-danger">Не определено</p>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Convert.ToDateTime(item.CreationDate).ToString("dd/MM/yyyy")
-            </td>
-            <td>
-                    @if (item.TakeDate != null)
-                    {
-                        @Convert.ToDateTime(item.TakeDate).ToString("dd/MM/yyyy")
-                    }
-                    else
-                    {
-                        <p class="text-danger">Не определено</p>
-                    }
-                </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            @* <td>
-                @Html.DisplayFor(modelItem => item.StatusId)
-            </td> *@
+<div class="bg-light p-4 shadow rounded w-100" style="min-height: 100vh;">
+    <h4 class="mb-4 text-primary text-center">Заявки</h4>
+    <form asp-action="GetRequestTable" method="get" class="mb-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="d-flex flex-wrap mb-2">
+                    <div class="form-group me-2">
+                        <label for="searchString" class="form-label text-primary">Найти по имени клиента:</label>
+                        <input type="text" name="SearchString" id="searchString" value="@ViewData["CurrentFilter"]" class="form-control border-primary" />
+                    </div>
+                    <div class="form-group">
+                        <label class="d-block form-label text-primary">&nbsp;</label>
+                        <input type="submit" value="Поиск" class="btn btn-primary" />
+                    </div>
+                </div>
+                <a asp-action="GetRequestTable" class="btn btn-secondary">Вернуться к полному списку</a>
+            </div>
+            <div class="col-md-4 d-flex flex-column align-items-end">
+                <div class="form-group mb-2">
+                    <label for="statusFilter" class="form-label text-primary">Фильтровать по статусу:</label>
+                    @Html.DropDownList("StatusFilter", (SelectList)ViewBag.Statuses, "Все", new { @class = "form-select border-primary", style = "width: auto;", onchange = "this.form.submit();" })
+                </div>
+                <div class="form-group d-flex flex-column align-items-end">
+                    <label for="employeeFilter" class="form-label text-primary text-end w-100">Фильтровать по исполнителю:</label>
+                    @Html.DropDownList("EmployeeFilter", (SelectList)ViewBag.Employees, "Все", new { @class = "form-select border-primary", style = "width: auto;", onchange = "this.form.submit();" })
+                </div>
+            </div>
+        </div>
+    </form>
+
+    @if (TempData["ErrorRequest"] != null)
+    {
+        <div class="alert alert-danger" id="errorMessage">
+            @TempData["ErrorRequest"]
+        </div>
+    }
+    @if (TempData["SuccessEdit"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessEdit"]
+        </div>
+    }
+
+    <table class="table table-hover w-100">
+        <thead class="table-primary">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.FullNameClient)</th>
+                <th>@Html.DisplayNameFor(model => model.TechnicalTask)</th>
+                <th>@Html.DisplayNameFor(model => model.Phone)</th>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
                 <th>
-                    @if(item.EmployeeInf != null)
-                    {
-                        @Html.DisplayFor(modelItem => item.EmployeeInf)
-                    }
-                    else
-                    {
-                        <p class="text-danger">Не определено</p>
-                    }
+                    <a asp-action="GetRequestTable" asp-route-sortOrder="@ViewData["CreateDateSortParm"]" asp-route-SearchString="@ViewData["CurrentFilter"]" asp-route-StatusFilter="@ViewData["CurrentStatusFilter"]" asp-route-EmployeeFilter="@ViewData["CurrentEmployeeFilter"]">
+                        @Html.DisplayNameFor(model => model.CreationDate)
+                    </a>
                 </th>
-            <td>
-                @Html.ActionLink("Редактировать", "Edit", new {  id=item.Id  }) |
-                @* @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) | *@
-                @Html.ActionLink("Удалить", "Delete", new {  id=item.Id  })
-            </td>
-        </tr>
+                <th>
+                    <a asp-action="GetRequestTable" asp-route-sortOrder="@ViewData["TakeDateSortParm"]" asp-route-SearchString="@ViewData["CurrentFilter"]" asp-route-StatusFilter="@ViewData["CurrentStatusFilter"]" asp-route-EmployeeFilter="@ViewData["CurrentEmployeeFilter"]">
+                        @Html.DisplayNameFor(model => model.TakeDate)
+                    </a>
+                </th>
+                <th>@Html.DisplayNameFor(model => model.Status)</th>
+                <th>@Html.DisplayNameFor(model => model.EmployeeInf)</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FullNameClient)</td>
+                    <td>
+                        @if (item.TechnicalTask != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.TechnicalTask)
+                        }
+                        else
+                        {
+                            <p class="text-danger">Не определено</p>
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Convert.ToDateTime(item.CreationDate).ToString("dd/MM/yyyy")</td>
+                    <td>
+                        @if (item.TakeDate != null)
+                        {
+                            @Convert.ToDateTime(item.TakeDate).ToString("dd/MM/yyyy")
+                        }
+                        else
+                        {
+                            <p class="text-danger">Не определено</p>
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                    <td>
+                        @if (item.EmployeeInf != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.EmployeeInf)
+                        }
+                        else
+                        {
+                            <p class="text-danger">Не определено</p>
+                        }
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-warning me-2" })
+                            @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
-    </tbody>
-</table>
+
+<style>
+    body {
+        margin: 0;
+    }
+
+    .bg-light {
+        background-color: #f8f9fa !important;
+    }
+
+    h4.text-primary {
+        font-weight: bold;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #d39e00;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+    .alert {
+        margin-top: 1rem;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+    }
+
+    .shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .table-primary th {
+        text-align: center;
+        background-color: #b8daff;
+        color: #004085;
+    }
+
+        .table-primary th a {
+            color: #004085;
+            text-decoration: none;
+        }
+
+            .table-primary th a:hover {
+                text-decoration: underline;
+            }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9f7fa;
+    }
+
+    .btn-group .btn {
+        margin-right: 5px;
+    }
+
+        .btn-group .btn:last-child {
+            margin-right: 0;
+        }
+
+    .container-fluid {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 100%;
+    }
+
+    .bg-light {
+        width: 100%;
+    }
+    .conteiner{
+        margin: 0 0 0 0;
+    }
+</style>

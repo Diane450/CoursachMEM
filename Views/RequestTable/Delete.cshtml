@@ -5,7 +5,7 @@
     ViewData["Centered"] = true;
 }
 
-<h4 class="mb-4 text-primary text-center">Вы уверены, что хотите удалить заявку?</h4>
+<h4 class="mb-4 text-danger text-center">Вы уверены, что хотите удалить заявку?</h4>
 <div class="d-flex justify-content-center">
     <div class="form-container p-4 shadow rounded" style="background-color: #f8f9fa;">
         <form asp-action="Delete">
@@ -13,33 +13,33 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-3">
-                        <label asp-for="Id" class="form-label text-primary"></label>
+                        <label asp-for="Id" class="form-label"></label>
                         <input asp-for="Id" class="form-control border-primary readonly-field" readonly />
                     </div>
                     <div class="form-group mb-3">
-                        <label asp-for="FullNameClient" class="form-label text-primary"></label>
+                        <label asp-for="FullNameClient" class="form-label"></label>
                         <input asp-for="FullNameClient" class="form-control border-primary readonly-field" readonly />
                     </div>
                     <div class="form-group mb-3">
-                        <label asp-for="TechnicalTask" class="form-label text-primary"></label>
+                        <label asp-for="TechnicalTask" class="form-label"></label>
                         <input asp-for="TechnicalTask" class="form-control border-primary readonly-field" readonly />
                     </div>
                     <div class="form-group mb-3">
-                        <label asp-for="Phone" class="form-label text-primary"></label>
+                        <label asp-for="Phone" class="form-label"></label>
                         <input asp-for="Phone" class="form-control border-primary readonly-field" readonly />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group mb-3">
-                        <label asp-for="Email" class="form-label text-primary"></label>
+                        <label asp-for="Email" class="form-label"></label>
                         <input asp-for="Email" class="form-control border-primary readonly-field" readonly />
                     </div>
                     <div class="form-group mb-3">
-                        <label asp-for="CreationDate" class="form-label text-primary"></label>
+                        <label asp-for="CreationDate" class="form-label"></label>
                         <input asp-for="CreationDate" type="date" class="form-control border-primary readonly-field" readonly />
                     </div>
                     <div class="form-group mb-3">
-                        <label asp-for="TakeDate" class="form-label text-primary"></label>
+                        <label asp-for="TakeDate" class="form-label"></label>
                         @if (Model.TakeDate == null)
                         {
                             <input class="form-control border-primary readonly-field" readonly value="Не определено" />
@@ -50,11 +50,11 @@
                         }
                     </div>
                     <div class="form-group mb-3">
-                        <label asp-for="Status" class="form-label text-primary"></label>
+                        <label asp-for="Status" class="form-label"></label>
                         <input asp-for="Status" class="form-control border-primary readonly-field" readonly />
                     </div>
                     <div class="form-group mb-3">
-                        <label asp-for="EmployeeInf" class="form-label text-primary"></label>
+                        <label asp-for="EmployeeInf" class="form-label"></label>
                         <input asp-for="EmployeeInf" class="form-control border-primary readonly-field" readonly />
                     </div>
                 </div>
