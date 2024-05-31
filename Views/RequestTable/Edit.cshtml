@@ -2,81 +2,73 @@
 
 @{
     ViewData["Title"] = "Редактировать";
+    ViewData["Centered"] = true;
 }
 <body onload="SetMinDate()">
-    <h4>Изменение заявки</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
+    <h4 class="mb-4 text-primary text-center">Изменение заявки</h4>
+    <div class="d-flex justify-content-center">
+        <div class="form-container p-4 shadow rounded" style="background-color: #f8f9fa;">
             <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Id" class="control-label"></label>
-                    <input asp-for="Id" class="form-control" readonly />
-                    <span asp-validation-for="Id" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FullNameClient" class="control-label"></label>
-                    <input asp-for="FullNameClient" class="form-control" readonly />
-                    <span asp-validation-for="FullNameClient" class="text-danger"></span>
-                </div>
-                @* <div class="form-group">
-                <label asp-for="ClientId" class="control-label"></label>
-                <input asp-for="ClientId" class="form-control" />
-                <span asp-validation-for="ClientId" class="text-danger"></span>
-                </div> *@
-                <div class="form-group">
-                    <label asp-for="TechnicalTask" class="control-label"></label>
-                    <input asp-for="TechnicalTask" class="form-control" />
-                    <span asp-validation-for="TechnicalTask" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Phone" class="control-label"></label>
-                    <input asp-for="Phone" class="form-control" readonly />
-                    <span asp-validation-for="Phone" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" readonly />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CreationDate" class="control-label"></label>
-                    <input asp-for="CreationDate" type="date" class="form-control" readonly />
-                    <span asp-validation-for="CreationDate" class="text-danger"></span>
-                </div>
-                @if (@Model.TakeDate == null)
-                {
-                    <div class="form-group">
-                        <label asp-for="TakeDate" class="control-label"></label>
-                        <input asp-for="TakeDate" type="date" class="form-control" id="date" />
-                        <span asp-validation-for="TakeDate" class="text-danger"></span>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Id" class="form-label text-primary"></label>
+                            <input asp-for="Id" class="form-control border-primary readonly-field" readonly />
+                            <span asp-validation-for="Id" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="FullNameClient" class="form-label text-primary"></label>
+                            <input asp-for="FullNameClient" class="form-control border-primary readonly-field" readonly />
+                            <span asp-validation-for="FullNameClient" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="TechnicalTask" class="form-label text-primary"></label>
+                            <input asp-for="TechnicalTask" class="form-control border-primary" />
+                            <span asp-validation-for="TechnicalTask" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Phone" class="form-label text-primary"></label>
+                            <input asp-for="Phone" class="form-control border-primary readonly-field" readonly />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
                     </div>
-                }
-                else
-                {
-                    <div class="form-group">
-                        <label asp-for="TakeDate" class="control-label"></label>
-                        <input asp-for="TakeDate" type="date" class="form-control" readonly />
-                        <span asp-validation-for="TakeDate" class="text-danger"></span>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="form-label text-primary"></label>
+                            <input asp-for="Email" class="form-control border-primary readonly-field" readonly />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="CreationDate" class="form-label text-primary"></label>
+                            <input asp-for="CreationDate" type="date" class="form-control border-primary readonly-field" readonly />
+                            <span asp-validation-for="CreationDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="TakeDate" class="form-label text-primary"></label>
+                            @if (Model.TakeDate == null)
+                            {
+                                <input asp-for="TakeDate" type="date" class="form-control border-primary" id="date" />
+                            }
+                            else
+                            {
+                                <input asp-for="TakeDate" type="date" class="form-control border-primary readonly-field" readonly />
+                            }
+                            <span asp-validation-for="TakeDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="StatusId" class="form-label text-primary"></label>
+                            <select asp-for="StatusId" asp-items="ViewBag.StatusName" class="form-control border-primary"></select>
+                            <span asp-validation-for="StatusId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="EmployeeInfId" class="form-label text-primary"></label>
+                            <select asp-for="EmployeeInfId" asp-items="ViewBag.EmployeeLastName" class="form-control border-primary"></select>
+                            <span asp-validation-for="EmployeeInfId" class="text-danger"></span>
+                        </div>
                     </div>
-                }
-                <div class="form-group">
-                    <label asp-for="StatusId" class="control-label"></label>
-                    <select asp-for="StatusId" asp-items="ViewBag.StatusName" class="form-control"></select>
-                    <span asp-validation-for="StatusId" class="text-danger"></span>
                 </div>
-                @* <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-                </div> *@
-                <div class="form-group">
-                    <label asp-for="EmployeeInfId" class="control-label"></label>
-                    <select asp-for="EmployeeInfId" asp-items="ViewBag.EmployeeLastName" class="form-control"></select>
-                    <span asp-validation-for="EmployeeInfId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+                <div class="d-flex justify-content-center mt-4">
                     <input type="submit" value="Применить изменения" class="btn btn-primary" />
                 </div>
             </form>
@@ -84,7 +76,48 @@
     </div>
 </body>
 
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
+<style>
+    h4.text-primary {
+        font-weight: bold;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+    .shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .readonly-field {
+        background-color: #e9ecef;
+        font-style: italic;
+    }
+
+    .form-container {
+        max-width: 800px;
+        width: 100%;
+    }
+</style>

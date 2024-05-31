@@ -2,53 +2,69 @@
 
 @{
     ViewData["Title"] = "Добавить нового сотрудника";
+    ViewData["Centered"] = true;
 }
 
-<h4>Создание нового сотрудника</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<h4 class="mb-4 text-primary text-center">Создание нового сотрудника</h4>
+<div class="d-flex justify-content-center">
+    <div class="form-container p-4 shadow rounded" style="background-color: #f8f9fa;">
         @if (TempData["Success"] != null)
         {
-            <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+            <div class="alert alert-success" id="successMessage">
+                @TempData["Success"]
+            </div>
         }
         <form asp-action="AddNewEmployee">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="FullName" class="form-label text-primary"></label>
+                        <input asp-for="FullName" class="form-control border-primary" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Phone" class="form-label text-primary"></label>
+                        <input asp-for="Phone" id="phone" class="form-control border-primary" value="8" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="Login" class="form-label text-primary"></label>
+                        <input asp-for="Login" class="form-control border-primary" />
+                        <span asp-validation-for="Login" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Password" class="form-label text-primary"></label>
+                        <input asp-for="Password" type="password" id="newUserPassword" class="form-control border-primary" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="show-password" onclick="show_hide_password()">
+                            <label class="form-check-label text-primary" for="show-password">
+                                Показать/скрыть пароль
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" id="phone" class="form-control" value="8" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="Email" class="form-label text-primary"></label>
+                        <input asp-for="Email" class="form-control border-primary" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="RoleId" class="form-label text-primary"></label>
+                        <select asp-for="RoleId" asp-items="ViewBag.RoleName" class="form-control border-primary"></select>
+                        <span asp-validation-for="RoleId" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Login" class="control-label"></label>
-                <input asp-for="Login" class="form-control" />
-                <span asp-validation-for="Login" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-				<input asp-for="Password" type="password" id="newUserPassword" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-                <input type="checkbox" class="show" id="show-password" onclick="show_hide_password()">
-                <label for="show-password">
-                    Показать/скрыть пароль
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="RoleId" class="control-label"></label>
-                <select asp-for="RoleId" asp-items="ViewBag.RoleName" class="form-control"></select>
-                <span asp-validation-for="RoleId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="d-flex justify-content-center mt-4">
                 <input type="submit" value="Добавить" class="btn btn-primary" />
             </div>
         </form>
@@ -56,5 +72,56 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function show_hide_password() {
+            var passwordField = document.getElementById("newUserPassword");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
+<style>
+    h4.text-primary {
+        font-weight: bold;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .alert {
+        margin-top: 1rem;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+    .shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container {
+        max-width: 800px;
+        width: 100%;
+    }
+</style>

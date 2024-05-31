@@ -2,69 +2,64 @@
 
 @{
     ViewData["Title"] = "Удалить";
+    ViewData["Centered"] = true;
 }
 
-<h4>Вы уверены, что хотите удалить заявку?</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<h4 class="mb-4 text-primary text-center">Вы уверены, что хотите удалить заявку?</h4>
+<div class="d-flex justify-content-center">
+    <div class="form-container p-4 shadow rounded" style="background-color: #f8f9fa;">
         <form asp-action="Delete">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" readonly/>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="Id" class="form-label text-primary"></label>
+                        <input asp-for="Id" class="form-control border-primary readonly-field" readonly />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="FullNameClient" class="form-label text-primary"></label>
+                        <input asp-for="FullNameClient" class="form-control border-primary readonly-field" readonly />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="TechnicalTask" class="form-label text-primary"></label>
+                        <input asp-for="TechnicalTask" class="form-control border-primary readonly-field" readonly />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Phone" class="form-label text-primary"></label>
+                        <input asp-for="Phone" class="form-control border-primary readonly-field" readonly />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="Email" class="form-label text-primary"></label>
+                        <input asp-for="Email" class="form-control border-primary readonly-field" readonly />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="CreationDate" class="form-label text-primary"></label>
+                        <input asp-for="CreationDate" type="date" class="form-control border-primary readonly-field" readonly />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="TakeDate" class="form-label text-primary"></label>
+                        @if (Model.TakeDate == null)
+                        {
+                            <input class="form-control border-primary readonly-field" readonly value="Не определено" />
+                        }
+                        else
+                        {
+                            <input asp-for="TakeDate" type="date" class="form-control border-primary readonly-field" readonly />
+                        }
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Status" class="form-label text-primary"></label>
+                        <input asp-for="Status" class="form-control border-primary readonly-field" readonly />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="EmployeeInf" class="form-label text-primary"></label>
+                        <input asp-for="EmployeeInf" class="form-control border-primary readonly-field" readonly />
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="FullNameClient" class="control-label"></label>
-                <input asp-for="FullNameClient" class="form-control" readonly />
-            </div>
-            @* <div class="form-group">
-                <label asp-for="ClientId" class="control-label"></label>
-                <input asp-for="ClientId" class="form-control" readonly />
-                <span asp-validation-for="ClientId" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="TechnicalTask" class="control-label"></label>
-                <input asp-for="TechnicalTask" class="form-control" readonly />
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" readonly />
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" readonly />
-            </div>
-            <div class="form-group">
-                <label asp-for="CreationDate" class="control-label"></label>
-                <input asp-for="CreationDate" type="date" class="form-control" readonly />
-            </div>
-            <div class="form-group">
-                @if (Model.TakeDate == null)
-                {
-                    <label asp-for="TakeDate" class="control-label"></label>
-                    <input class ="form-control" readonly value="Не определено"/>
-                }
-                else
-                {
-                    <label asp-for="TakeDate" class="control-label"></label>
-                    <input asp-for="TakeDate" type="date" class="form-control" readonly />
-                }
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" readonly />
-            </div>
-            <div class="form-group">
-                <label asp-for="EmployeeInf" class="control-label"></label>
-                <input asp-for="EmployeeInf" class="form-control" readonly />
-            </div>
-            @* <div class="form-group">
-                <label asp-for="StatusId" class="control-label"></label>
-                <input asp-for="StatusId" class="form-control" readonly />
-                <span asp-validation-for="StatusId" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
+            <div class="d-flex justify-content-center mt-4">
                 <input type="submit" value="Удалить" class="btn btn-danger" />
             </div>
         </form>
@@ -72,5 +67,47 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
+<style>
+    h4.text-primary {
+        font-weight: bold;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+    .shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .readonly-field {
+        background-color: #e9ecef;
+        font-style: italic;
+    }
+
+    .form-container {
+        max-width: 800px;
+        width: 100%;
+    }
+</style>

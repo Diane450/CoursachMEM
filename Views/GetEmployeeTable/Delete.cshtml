@@ -2,46 +2,41 @@
 
 @{
     ViewData["Title"] = "Удаление";
+    ViewData["Centered"] = true;
 }
 
-<h4 class="text-danger">Вы уверены, что хотите удалить данного пользователя?</h4>
-<hr />
+<h4 class="text-danger text-center">Вы уверены, что хотите удалить данного пользователя?</h4>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Delete">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @* <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" class="form-control" readonly />
+<div class="d-flex justify-content-center">
+    <div class="form-container p-4 shadow rounded" style="background-color: #f8f9fa; max-width: 600px; width: 100%;">
+        <form asp-action="Delete" class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control border-primary readonly-field" readonly />
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Phone" class="form-label"></label>
+                    <input asp-for="Phone" class="form-control border-primary readonly-field" readonly />
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control border-primary readonly-field" readonly />
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" readonly />
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="Login" class="form-label"></label>
+                    <input asp-for="Login" class="form-control border-primary readonly-field" readonly />
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Role" class="form-label"></label>
+                    <input asp-for="Role" class="form-control border-primary readonly-field" readonly />
+                </div>
+                
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" readonly />
-            </div>
-            <div class="form-group">
-                <label asp-for="Login" class="control-label"></label>
-                <input asp-for="Login" class="form-control" readonly />
-            </div>
-            @* <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" readonly />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="Role" class="control-label"></label>
-                <input asp-for="Role" class="form-control" readonly />
-            </div>
-            <div class="form-group">
+            <div class="d-flex justify-content-center mt-4">
                 <input type="submit" value="Удалить" formnovalidate class="btn btn-danger" />
             </div>
         </form>
@@ -49,5 +44,47 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
+<style>
+    h4.text-primary {
+        font-weight: bold;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+    .shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .readonly-field {
+        background-color: #e9ecef;
+        font-style: italic;
+    }
+
+    .form-container {
+        max-width: 800px;
+        width: 100%;
+    }
+</style>
