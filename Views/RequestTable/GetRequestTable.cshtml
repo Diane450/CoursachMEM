@@ -47,79 +47,88 @@
         </div>
     }
 
-    <table class="table table-hover w-100">
-        <thead class="table-primary">
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.Id)</th>
-                <th>@Html.DisplayNameFor(model => model.FullNameClient)</th>
-                <th>@Html.DisplayNameFor(model => model.TechnicalTask)</th>
-                <th>@Html.DisplayNameFor(model => model.Phone)</th>
-                <th>@Html.DisplayNameFor(model => model.Email)</th>
-                <th>
-                    <a asp-action="GetRequestTable" asp-route-sortOrder="@ViewData["CreateDateSortParm"]" asp-route-SearchString="@ViewData["CurrentFilter"]" asp-route-StatusFilter="@ViewData["CurrentStatusFilter"]" asp-route-EmployeeFilter="@ViewData["CurrentEmployeeFilter"]">
-                        @Html.DisplayNameFor(model => model.CreationDate)
-                    </a>
-                </th>
-                <th>
-                    <a asp-action="GetRequestTable" asp-route-sortOrder="@ViewData["TakeDateSortParm"]" asp-route-SearchString="@ViewData["CurrentFilter"]" asp-route-StatusFilter="@ViewData["CurrentStatusFilter"]" asp-route-EmployeeFilter="@ViewData["CurrentEmployeeFilter"]">
-                        @Html.DisplayNameFor(model => model.TakeDate)
-                    </a>
-                </th>
-                <th>@Html.DisplayNameFor(model => model.Status)</th>
-                <th>@Html.DisplayNameFor(model => model.EmployeeInf)</th>
-                <th>Действия</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            Заявки не найдены.
+        </div>
+    }
+    else
+    {
+        <table class="table table-hover w-100">
+            <thead class="table-primary">
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                    <td>@Html.DisplayFor(modelItem => item.FullNameClient)</td>
-                    <td>
-                        @if (item.TechnicalTask != null)
-                        {
-                            @Html.DisplayFor(modelItem => item.TechnicalTask)
-                        }
-                        else
-                        {
-                            <p class="text-danger">Не определено</p>
-                        }
-                    </td>
-                    <td>@Html.DisplayFor(modelItem => item.Phone)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                    <td>@Convert.ToDateTime(item.CreationDate).ToString("dd/MM/yyyy")</td>
-                    <td>
-                        @if (item.TakeDate != null)
-                        {
-                            @Convert.ToDateTime(item.TakeDate).ToString("dd/MM/yyyy")
-                        }
-                        else
-                        {
-                            <p class="text-danger">Не определено</p>
-                        }
-                    </td>
-                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                    <td>
-                        @if (item.EmployeeInf != null)
-                        {
-                            @Html.DisplayFor(modelItem => item.EmployeeInf)
-                        }
-                        else
-                        {
-                            <p class="text-danger">Не определено</p>
-                        }
-                    </td>
-                    <td>
-                        <div class="btn-group" role="group">
-                            @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-warning me-2" })
-                            @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
-                        </div>
-                    </td>
+                    <th>@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.FullNameClient)</th>
+                    <th>@Html.DisplayNameFor(model => model.TechnicalTask)</th>
+                    <th>@Html.DisplayNameFor(model => model.Phone)</th>
+                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    <th>
+                        <a asp-action="GetRequestTable" asp-route-sortOrder="@ViewData["CreateDateSortParm"]" asp-route-SearchString="@ViewData["CurrentFilter"]" asp-route-StatusFilter="@ViewData["CurrentStatusFilter"]" asp-route-EmployeeFilter="@ViewData["CurrentEmployeeFilter"]">
+                            @Html.DisplayNameFor(model => model.CreationDate)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="GetRequestTable" asp-route-sortOrder="@ViewData["TakeDateSortParm"]" asp-route-SearchString="@ViewData["CurrentFilter"]" asp-route-StatusFilter="@ViewData["CurrentStatusFilter"]" asp-route-EmployeeFilter="@ViewData["CurrentEmployeeFilter"]">
+                            @Html.DisplayNameFor(model => model.TakeDate)
+                        </a>
+                    </th>
+                    <th>@Html.DisplayNameFor(model => model.Status)</th>
+                    <th>@Html.DisplayNameFor(model => model.EmployeeInf)</th>
+                    <th>Действия</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FullNameClient)</td>
+                        <td>
+                            @if (item.TechnicalTask != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.TechnicalTask)
+                            }
+                            else
+                            {
+                                <p class="text-danger">Не определено</p>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Convert.ToDateTime(item.CreationDate).ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (item.TakeDate != null)
+                            {
+                                @Convert.ToDateTime(item.TakeDate).ToString("dd/MM/yyyy")
+                            }
+                            else
+                            {
+                                <p class="text-danger">Не определено</p>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                        <td>
+                            @if (item.EmployeeInf != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.EmployeeInf)
+                            }
+                            else
+                            {
+                                <p class="text-danger">Не определено</p>
+                            }
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-warning me-2" })
+                                @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>
 
 @section Scripts {
@@ -235,7 +244,8 @@
     .bg-light {
         width: 100%;
     }
-    .conteiner{
+
+    .conteiner {
         margin: 0 0 0 0;
     }
 </style>
