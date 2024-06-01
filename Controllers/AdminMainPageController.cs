@@ -18,16 +18,16 @@ namespace coursach.Controllers
         public IActionResult DownloadExcel()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            var dataList = GetDataFromDatabase(); // Метод для получения данных
+            var dataList = GetDataFromDatabase();
 
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("Sheet1");
 
-                // Получение типа и свойств для заголовков
+
 
                 string[] headers = new string [] {"Имя клиента", "Техническое задание", "Дата создания заявки", "Дата начала обработки заявки", "Статус", "Исполнитель" };
-                // Заголовки столбцов
+
                 for (int col = 1; col <= headers.Length; col++)
                 {
                     worksheet.Cells[1, col].Value = headers[col - 1];
@@ -37,7 +37,7 @@ namespace coursach.Controllers
                 }
 
 
-                // Данные
+
                 for (int row = 0; row < dataList.Count; row++)
                 {
                     worksheet.Cells[row + 2, 1].Value = dataList[row].FullNameClient;

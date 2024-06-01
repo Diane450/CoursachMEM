@@ -103,7 +103,6 @@ namespace coursach.Controllers
             var request = _dbContext.Requests.SingleOrDefault(r => r.Id == id);
             if (request == null)
             {
-                //TempData["ErrorRequest"] = $"Данного запроса не существует";
                 return RedirectToAction("GetRequestTable");
             }
             else

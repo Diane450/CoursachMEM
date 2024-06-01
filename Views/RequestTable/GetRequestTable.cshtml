@@ -20,6 +20,9 @@
                     </div>
                 </div>
                 <a asp-action="GetRequestTable" class="btn btn-secondary">Вернуться к полному списку</a>
+                <p>
+                    <a class="btn btn-secondary mt-3" asp-controller="AdminMainPage" asp-action="DownloadExcel">Отчет</a>
+                </p>
             </div>
             <div class="col-md-4 d-flex flex-column align-items-end">
                 <div class="form-group mb-2">
@@ -160,6 +163,9 @@
         transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
+    .mt-3 {
+        margin-top: 1rem; /* Установите нужное значение отступа */
+    }
         .btn-primary:hover {
             background-color: #0056b3;
             border-color: #004085;

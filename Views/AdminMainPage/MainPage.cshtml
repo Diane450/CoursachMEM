@@ -7,17 +7,15 @@
     <h4 class="mb-4 text-center text-primary">Меню</h4>
     <div class="d-flex flex-column align-items-center">
         <p>
-            <a class="btn btn-primary mb-2" asp-controller="NewEmployee" asp-action="AddNewEmployee">Добавить нового сотрудника</a>
+            <a class="btn btn-primary mb-2 button-width" asp-controller="NewEmployee" asp-action="AddNewEmployee">Добавить нового сотрудника</a>
         </p>
         <p>
-            <a class="btn btn-primary mb-2" asp-controller="GetEmployeeTable" asp-action="GetTable">Изменить данные о сотруднике</a>
+            <a class="btn btn-primary mb-2 button-width" asp-controller="GetEmployeeTable" asp-action="GetTable">Изменить данные о сотруднике</a>
         </p>
         <p>
-            <a class="btn btn-primary mb-2" asp-controller="RequestTable" asp-action="GetRequestTable">Просмотр заявок</a>
+            <a class="btn btn-primary mb-2 button-width" asp-controller="RequestTable" asp-action="GetRequestTable">Просмотр заявок</a>
         </p>
-        <p>
-            <a class="btn btn-primary mb-2" asp-controller="AdminMainPage" asp-action="DownloadExcel">Отчет</a>
-        </p>
+        
     </div>
 </div>
 
@@ -38,6 +36,10 @@
             background-color: #0056b3;
             border-color: #004085;
         }
+
+    .button-width {
+        width: 400px; /* Установите желаемую ширину */
+    }
 
     body {
         background-color: #e9ecef;
